@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.btn-play {
+  font: 700 1.5rem "Roboto", sans-serif;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+}
+
+.btn-play:hover {
+  background-color: #f00;
+  color: #fff;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 50px;
+}
+
+label.score {
+  font: 700 1.5rem "Roboto", sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+#score-player {
+  color: #f00;
+}
+
+#score-computer {
+  color: #00f;
+}
+
+.btn-game {
+  font: 700 1.5rem "Roboto", sans-serif;
+  padding: 0.5rem 3rem;
+  border-radius: 50px;
+}
+
+.btn-game:hover {
+  background-color: #f00;
+  color: #fff;
+}
+
+.message {
+  font-size: large;
+}
+
+.message span {
+  padding: 0 3px;
+  text-transform: uppercase;
+  font-size: larger;
+  font-family: "roboto", sans-serif;
+  font-weight: 700;
+}
+
+#myChoice {
+  color: #f00;
+}
+
+#cpuChoice {
+  color: #00f;
+}
+
+#winnerText {
+  font-size: 2rem;
+}
+
+.btn-restart {
+  position: relative;
+  top: 50px;
+  font: 700 1.5rem "Roboto", sans-serif;
+  padding: 0.5rem 0.5rem;
+  border: none;
+  background-color: white;
+  border-radius: 50px;
+}
+
+.btn-restart:hover {
+  background-color: #f00;
+  color: #fff;
+}

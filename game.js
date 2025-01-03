@@ -1,52 +1,36 @@
-/**
- * Game concept
- * - the game will be only made in the console *for now*
- * - start the game by calling the function (startGame)
- * - the game will have 5 rounds (playRound)
- * - the user will input a value from ["rock", "paper", "scissors"] (getUserChoice)
- * - the computer will generate a random value from ["rock", "paper", "scissors"] (getComputerChoice)
- * - the program will compare the values and determine the winner (playRound)
- * - the program will keep track of the score (humanScore) and (computerScore)
- * - the program will display the winner (showWinner)
- */
-
 // Global variables
 var humanScore = 0;
 var computerScore = 0;
+var humanChoice = "";
 
-function getComputerChoice() {
+// Make functions globally accessible
+window.getComputerChoice = function () {
   let choice = Math.floor(Math.random() * 3);
-
   let answer = choice === 0 ? "rock" : choice === 1 ? "paper" : "scissors";
-
   return answer;
-}
+};
 
-function getHumanChoice() {
-  let flag = false;
-  let answer = "";
+window.getRock = function () {
+  humanChoice = "rock";
+  return playRound(humanChoice, getComputerChoice());
+};
 
-  while (!flag) {
-    let choice = prompt("Choose rock, paper, or scissors: ").toLowerCase();
+window.getPaper = function () {
+  humanChoice = "paper";
+  return playRound(humanChoice, getComputerChoice());
+};
 
-    answer =
-      choice === "rock"
-        ? "rock"
-        : choice === "paper"
-        ? "paper"
-        : choice === "scissors"
-        ? "scissors"
-        : false;
-
-    flag = answer != false ? true : false;
-  }
-
-  return answer;
-}
+window.getScissors = function () {
+  humanChoice = "scissors";
+  return playRound(humanChoice, getComputerChoice());
+};
 
 // Function to determine the winner and update the score
-function playRound(humanChoice, computerChoice) {
+window.playRound = function (humanChoice, computerChoice) {
   let winner = "";
+  const spanHumanScore = document.getElementById("score-player");
+  const spanComputerScore = document.getElementById("score-computer");
+
   if (humanChoice === computerChoice) {
     winner = "It's a tie!";
   } else if (
@@ -60,22 +44,50 @@ function playRound(humanChoice, computerChoice) {
     winner = "You lose!";
     computerScore++;
   }
-  alert(
-    `You chose ${humanChoice} and the computer chose ${computerChoice}\n${winner}`
-  );
-}
+
+  spanComputerScore.textContent = computerScore;
+  spanHumanScore.textContent = humanScore;
+
+  const div = document.querySelector(".message");
+  div.innerHTML = `
+  <p>You chose <span id="myChoice">${humanChoice}</span> and the computer chose <span id="cpuChoice">${computerChoice}</span>. 
+  <br/>
+  <br/>
+  <span id="winnerText">${winner}</span>
+  </p>
+  `;
+};
+
+window.restart = function () {
+  location.reload();
+};
 
 // Function called at the start of the game to play 5 rounds
-function playGame() {
-  for (let i = 1; i <= 5; i++) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-
-    playRound(humanSelection, computerSelection);
-  }
-  alert(
-    `The final score is: \nYou: ${humanScore} \nComputer: ${computerScore}`
-  );
-  humanScore = 0;
-  computerScore = 0;
-}
+window.playGame = function () {
+  document.querySelector("button").remove();
+  const divElement = document.querySelector("div");
+  divElement.innerHTML = `
+    <div class="scoreboard">
+        <label for="score-player" class="score">Player: <span id="score-player">0</span></label>
+        <label for="score-computer" class="score" >Computer: <span id="score-computer">0</span></label>
+    </div>
+    <div class="message pb-5"></div>
+      <div class="d-flex justify-content-center gap-3"> 
+        <div class="row">
+          <div class="col-sm pb-3">
+            <button type="button " class="btn-game" onclick="getRock()">🗻</button>
+          </div>
+          <div class="col-sm pb-3">
+            <button type="button" class="btn-game" onclick="getPaper()">🧻</button>
+          </div>
+          <div class="col-sm">
+            <button type="button" class="btn-game" onclick="getScissors()">✂️</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn-restart" onclick="restart()">Play Again</button>
+    </div>
+  `;
+};
